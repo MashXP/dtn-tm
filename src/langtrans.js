@@ -20,12 +20,16 @@ function createInputBoxes(data) {
     input.contentEditable = true;
     input.textContent = data[key];
 
-    // Add event listener to select all content on focus or click
-    input.addEventListener("focus", function() {
-      selectAllContent(input);
-    });
-    input.addEventListener("click", function() {
-      selectAllContent(input);
+    // Add event listener to select all content on pressing Tab and move to the next input box
+    input.addEventListener("keydown", function(event) {
+      if (event.key === 'Tab') {
+        const nextInput = input.parentElement.nextSibling.querySelector(".input-box");
+        if (nextInput) {
+          nextInput.focus();
+          selectAllContent(nextInput);
+        }
+        event.preventDefault();
+      }
     });
 
     const div = document.createElement("div");
@@ -46,7 +50,6 @@ function selectAllContent(element) {
   selection.removeAllRanges();
   selection.addRange(range);
 }
-
 // Function to generate JSON from input values
 function generateJSON() {
   const inputs = document.querySelectorAll(".input-box");
