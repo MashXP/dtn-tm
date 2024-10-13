@@ -135,10 +135,11 @@ function compareJSON(uploadedData, fetchedData) {
     input.textContent = uploadedValue || '';
 
     if (uploadedValue === undefined) {
-      // Highlight missing entries in #ffe5e5
+      // Highlight missing entries in red
       label.style.color = 'red';
       indexElement.style.color = 'red';
       input.style.backgroundColor = 'rgb(94 17 17)';
+      input.innerHTML = `(Original: ${fetchedValue})`;
       missingCount++;
     } else if (uploadedValue !== fetchedValue) {
       // Highlight changed entries in #ffceac and label in #ff6c00
@@ -182,6 +183,14 @@ function compareJSON(uploadedData, fetchedData) {
   });
   document.getElementById("toggle-original").addEventListener("change", function() {
     toggleOriginalTranslation();
+  });
+  // Fix the bug where the original content is gone when pressing revert
+  document.getElementById("revert-button").addEventListener("click", function() {
+    const originalTranslations = document.querySelectorAll('.input-box[data-original-value]');
+    for (const input of originalTranslations) {
+      input.innerHTML = input.dataset.uploadedValue;
+      input.dataset.uploadedValue = input.textContent;
+    }
   });
 }
 // Function to filter entries based on checkbox selection
