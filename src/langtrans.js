@@ -248,6 +248,11 @@ revertButton.addEventListener("click", revertData);
 const downloadJSONButton = document.getElementById("download-json-button");
 downloadJSONButton.addEventListener("click", downloadJSON);
 
+// Hide the Download Json button when revert is clicked
+document.getElementById("revert-button").addEventListener("click", () => {
+  document.getElementById("download-json-button").style.display = 'none';
+});
+
 // Scroll to top of JSON function
 document.getElementById("scroll-to-json-top").addEventListener("click", () => {
   const jsonPreviewElement = document.getElementById("json-preview");

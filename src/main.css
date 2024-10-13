@@ -76,7 +76,7 @@ p {
 
 .scroll-button, .sticky-button {
   position: fixed;
-  padding: 10px 20px;
+  padding: 10px 10px;
   background-color: #696969;
   color: #f5f5f5;
   border: none;
@@ -126,7 +126,7 @@ p {
 
 #download-json-button {
   bottom: 20px;
-  left: 160px;
+  left: 150px;
   display: none;
   background-color: rgb(55, 99, 12);
   transition: background-color 0.3s ease-in-out;
