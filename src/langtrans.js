@@ -252,3 +252,11 @@ document.getElementById("scroll-to-bottom").addEventListener("click", () => {
   window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 });
 
+// Function to change background
+const backgrounds = ["bg4.png", "bg2.png", "bg3.png", "bg.png"];
+let backgroundIndex = 0;
+
+function changeBackgroundImage() {
+  document.body.style.backgroundImage = `url('${backgrounds[backgroundIndex++ % backgrounds.length]}')`;
+}
+

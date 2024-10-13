@@ -3,6 +3,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  transition: background-image 0.3s ease-in-out;
   color: #f5f5f5;
   font-family: Tahoma;
 }
@@ -56,6 +57,10 @@ p {
   color: #f5f5f5;
   font-size: 16px;
 }
+.input-box:hover {
+  border: 1px solid #f5f5f5;
+  transition: ease-in-out 0.3s;
+}
 
 .wrapper {
   display: flex;
@@ -78,7 +83,20 @@ p {
   z-index: 1;
 }
 
-.scroll-button:hover, .sticky-button:hover {
+.change-background-button {
+  position: absolute;
+  right: 50px;
+  padding: 5px 5px;
+  background-color: #696969;
+  color: #f5f5f5;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.scroll-button:hover, .sticky-button:hover, .change-background-button:hover{
   background-color: #0056b3;
 }
 
