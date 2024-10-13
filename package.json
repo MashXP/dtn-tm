@@ -5,7 +5,8 @@
   "description": "My Electron application description",
   "main": "src/index.js",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "npm run compile && electron-forge start",
+    "compile": "tsc",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
@@ -20,7 +21,8 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.5.0",
     "@electron-forge/plugin-fuses": "^7.5.0",
     "@electron/fuses": "^1.8.0",
-    "electron": "32.2.0"
+    "electron": "^32.2.0",
+    "typescript": "^5.6.3"
   },
   "keywords": [],
   "author": {
