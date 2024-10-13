@@ -7,7 +7,11 @@ function createInputBoxes(data) {
   const container = document.getElementById("input-container");
   container.innerHTML = ''; // Clear existing content
 
+  let index = 1;
   for (const key in data) {
+    const indexElement = document.createElement("span");
+    indexElement.textContent = `${index++}. `;
+
     const label = document.createElement("label");
     label.textContent = `"${key}":`;
 
@@ -26,6 +30,7 @@ function createInputBoxes(data) {
 
     const div = document.createElement("div");
     div.className = "input-container";
+    div.appendChild(indexElement);
     div.appendChild(label);
     div.appendChild(input);
 
@@ -113,9 +118,13 @@ function compareJSON(uploadedData, fetchedData) {
   let missingCount = 0;
   let changedCount = 0;
 
+  let index = 1;
   for (const key in fetchedData) {
     const uploadedValue = uploadedData[key];
     const fetchedValue = fetchedData[key];
+
+    const indexElement = document.createElement("span");
+    indexElement.textContent = `${index++}. `;
 
     const label = document.createElement("label");
     label.textContent = `"${key}":`;
@@ -128,12 +137,14 @@ function compareJSON(uploadedData, fetchedData) {
     if (uploadedValue === undefined) {
       // Highlight missing entries in #ffe5e5
       label.style.color = 'red';
+      indexElement.style.color = 'red';
       input.style.backgroundColor = 'rgb(94 17 17)';
       missingCount++;
     } else if (uploadedValue !== fetchedValue) {
       // Highlight changed entries in #ffceac and label in #ff6c00
       input.style.backgroundColor = 'rgb(96 53 12)';
       label.style.color = '#ff6c00';
+      indexElement.style.color = '#ff6c00';
       input.dataset.originalValue = fetchedValue; // Store original value in data attribute
       input.dataset.uploadedValue = uploadedValue; // Store uploaded value in data attribute
       input.innerHTML = `${uploadedValue}<br><i style="color: gray;">(Original: ${fetchedValue})</i>`;
@@ -142,6 +153,7 @@ function compareJSON(uploadedData, fetchedData) {
 
     const div = document.createElement("div");
     div.className = "input-container";
+    div.appendChild(indexElement);
     div.appendChild(label);
     div.appendChild(input);
 
