@@ -290,7 +290,12 @@ document.getElementById("scroll-to-bottom").addEventListener("click", () => {
 });
 
 // Function to change background
-const backgrounds = ["bg4.png", "bg2.png", "bg3.png", "bg.png"];
+const backgrounds = [
+  "res/images/background/bg4.png", 
+  "res/images/background/bg2.png", 
+  "res/images/background/bg3.png", 
+  "res/images/background/bg.png"
+];
 let backgroundIndex = 0;
 
 function changeBackgroundImage() {
