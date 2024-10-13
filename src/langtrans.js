@@ -260,3 +260,17 @@ function changeBackgroundImage() {
   document.body.style.backgroundImage = `url('${backgrounds[backgroundIndex++ % backgrounds.length]}')`;
 }
 
+// Fetch total entries function
+function updateTotalEntries() {
+  document.getElementById("total-entries").innerText = Object.keys(fetchedData).length;
+}
+
+// Call the function when the data is fetched
+fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json")
+  .then(response => response.json())
+  .then(data => {
+    fetchedData = data;
+    updateTotalEntries();
+    createInputBoxes(data);
+  })
+  .catch(error => console.error("Error fetching data:", error));

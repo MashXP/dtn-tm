@@ -159,6 +159,11 @@ p {
   background-color: #333;
   color: #f5f5f5;
 }
+.total-entries {
+  position: absolute;
+  right: 120px;
+  font-size: 15px;
+}
 
 .input-container, pre, .upload-container, #rename-bar {
   background-color: #333;
