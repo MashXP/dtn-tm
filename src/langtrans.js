@@ -22,12 +22,20 @@ function createInputBoxes(data) {
 
     // Add event listener to select all content on pressing Tab and move to the next input box
     input.addEventListener("keydown", function(event) {
-      if (event.key === 'Tab') {
+      if (event.key === 'Tab' && !event.shiftKey) {
         const nextInput = input.parentElement.nextSibling.querySelector(".input-box");
         if (nextInput) {
           nextInput.focus();
           selectAllContent(nextInput);
         }
+      } else if (event.key === 'Tab' && event.shiftKey) {
+        const previousInput = input.parentElement.previousSibling.querySelector(".input-box");
+        if (previousInput) {
+          previousInput.focus();
+          selectAllContent(previousInput);
+        }
+      }
+      if (event.key === 'Tab') {
         event.preventDefault();
       }
     });
