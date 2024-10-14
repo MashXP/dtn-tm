@@ -9,16 +9,20 @@
     <link rel="stylesheet" href="main.css" />
   </head>
   <body>
+    <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+      <img src="res/images/dtn_logo.png" style="cursor: default; max-height: 150px;">
+    </div>
+    
     <h1>Welcome to DTN Translation Manager</h1>
-    <p>This is a user-friendly tool designed to simplify the process of managing and translating text within the DTN platform. With this manager, you can easily:</p>
+    <p>This is a user-friendly tool designed to simplify the process of Managing and Translating JSON entries. With this manager, you can easily:</p>
     <ul>
-      <li>Edit and update translations</li>
-      <li>View translation history</li>
-      <li>Generate JSON files</li>
-      <li>Import JSON files</li>
-      <li>Download JSON files</li>
+      <li>Upload and compare JSON files with DTN's Latest Localization file (by default).</li>
+      <li>Filter out Changed and Missing entries.</li>
+      <li>Tab to quickly move to the next Entry!</li>
+      <li>Download the generated JSON file to your local machine.</li>
+      <li>Quickly find designated entries with Ctrl+F !</li>
     </ul>
-    <p>This tool aims to streamline the translation process and ensure consistent and accurate translations entries.</p>  
+    <p>This tool aims to streamline the translation process and ensure Consistent and Accurate localization entries.</p>  
     <div class="upload-container">
       <label for="file-upload" class="upload-label">Upload JSON to compare:</label>
       <input type="file" id="file-upload" accept=".json">    
@@ -55,17 +59,24 @@
       <button id="scroll-to-bottom" class="scroll-button">🡳</button>
     </div>
     
-    <div>
-      <p>Got any issues? Join our Discord server!</p>
+    <div style="background-color: rgba(0, 0, 0, 0.5); padding-top: 0; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; position: relative; bottom: 0; transform: scale(1.02);">
+      <p style="background-color: rgba(0, 0, 0, 0.7); padding: 20px;">Got any issues? Join our Discord server!</p>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 25px;">
+        <a href="https://www.curseforge.com/minecraft/mc-mods/doggy-talents-next" target="_blank">
+          <img src="res/images/dtn_icon.png" class="footer-banner" onmouseover="showKumiQuote('Download NOW at Curseforge!')" onmouseout="hideKumiQuote()">
+        </a>
+        <a href="https://discord.gg/VnSkMufZEc" target="_blank">
+          <img src="res/images/dtn_discord_banner.png" class="footer-banner" onmouseover="showKumiQuote('Join our Discord NOW!')" onmouseout="hideKumiQuote()">
+        </a>
+      </div>
     </div>
-    <div style="display: flex; align-items: center; justify-content: center; position: relative;">
-      <a href="https://discord.gg/VnSkMufZEc" target="_blank"><img src="res/images/dtn_discord_banner.png" class="footer-banner" style="margin-right: 100px;" onmouseover="showKumiQuote('Join our Discord NOW!')" onmouseout="hideKumiQuote()"></a>
-      <a href="https://www.curseforge.com/minecraft/mc-mods/doggy-talents-next" target="_blank"><img src="res/images/dtn_icon.png" class="footer-banner" style="margin-left: 10px;" onmouseover="showKumiQuote('Download NOW at Curseforge!')" onmouseout="hideKumiQuote()"></a>
+
+    <div style="display: block; position: relative;">
+      <img src="res/images//kumi/kumi_stare.png" class="kumi" onmouseover="showKumiQuote();playRandomSound()" onmouseout="hideKumiQuote()" onclick="showKumiQuote();playRandomSound()">
+      <p class="kumi-dialogue">
+        <script src="kumi.js"></script>
+      </p>
     </div>
-    <img src="res/images//kumi/kumi_stare.png" class="kumi" onmouseover="showKumiQuote();playRandomSound()" onmouseout="hideKumiQuote()" onclick="showKumiQuote();playRandomSound()">
-    <p class="kumi-dialogue">
-      <script src="kumi.js"></script>
-    </p>
     
     <script src="langtrans.js"></script>
     <script src="finder.js"></script>
