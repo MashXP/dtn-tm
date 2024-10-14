@@ -228,6 +228,9 @@ p {
   width: 100px; 
   margin-right: 170px;
   margin-bottom: -40px;
+  position: fixed;
+  bottom: 20px;
+  right: 0;
 }
 .kumi:hover{
   transform: scale(1.1);
@@ -240,4 +243,9 @@ p {
 .kumi-dialogue {
   font-size: 15px;
   color: white;
+  display: none;
+  position: fixed;
+  bottom: 70px;
+  right: 160px;
+  width: 120px;
 }

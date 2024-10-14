@@ -21,8 +21,8 @@
     <p>This tool aims to streamline the translation process and ensure consistent and accurate translations entries.</p>  
     <div class="upload-container">
       <label for="file-upload" class="upload-label">Upload JSON to compare:</label>
-      <input type="file" id="file-upload" accept=".json">
-      <button onclick="changeBackgroundImage()" class="change-background-button">Change Background</button>     
+      <input type="file" id="file-upload" accept=".json">    
+      <button onclick="changeBackgroundImage()" class="change-background-button">Change Background</button>
     </div>
     <div id="rename-bar">
       <label for="rename-input">Rename file: </label>
@@ -62,11 +62,11 @@
       <a href="https://discord.gg/VnSkMufZEc" target="_blank"><img src="res/images/dtn_discord_banner.png" class="footer-banner" style="margin-right: 100px;" onmouseover="showKumiQuote('Join our Discord NOW!')" onmouseout="hideKumiQuote()"></a>
       <a href="https://www.curseforge.com/minecraft/mc-mods/doggy-talents-next" target="_blank"><img src="res/images/dtn_icon.png" class="footer-banner" style="margin-left: 10px;" onmouseover="showKumiQuote('Download NOW at Curseforge!')" onmouseout="hideKumiQuote()"></a>
     </div>
-    <img src="res/images//kumi/kumi_stare.png" class="kumi" style="display: block; position: fixed; bottom: 20px; right: 0;" onmouseover="showKumiQuote();playRandomSound()" onmouseout="hideKumiQuote()" onclick="showKumiQuote();playRandomSound()">
-    <p class="kumi-dialogue" style="display: none; position: fixed; bottom: 70px; right: 160px; width: 120px;">
+    <img src="res/images//kumi/kumi_stare.png" class="kumi" onmouseover="showKumiQuote();playRandomSound()" onmouseout="hideKumiQuote()" onclick="showKumiQuote();playRandomSound()">
+    <p class="kumi-dialogue">
       <script src="kumi.js"></script>
     </p>
-
+    
     <script src="langtrans.js"></script>
     <script src="finder.js"></script>
     <script src="buttons.js"></script>
