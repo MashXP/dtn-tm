@@ -1,3 +1,4 @@
+import { Kumi, openDTNDiscordLink, openDTNPage } from "./kumi";
 import { DTNUtils } from "./Util";
 
 let originalData: any = {};
@@ -384,3 +385,36 @@ document.addEventListener("keydown", function(event) {
     }
   }
 });
+
+let kumi = document.getElementsByClassName("kumi")![0] as HTMLElement;
+kumi.addEventListener("mouseover", e => {
+  Kumi.onHover()
+})
+kumi.addEventListener("mouseleave", e => {
+  Kumi.onMouseOut()
+})
+kumi.addEventListener("click", e => {
+  Kumi.onClick()
+})
+
+let dtn_discord = document.getElementsByClassName("dtn_discord_banner")![0] as HTMLElement;
+dtn_discord.addEventListener("mouseover", e => {
+  Kumi.showQuote('Join our Discord NOW!')
+})
+dtn_discord.addEventListener("mouseleave", e => {
+  Kumi.hideQuote()
+})
+dtn_discord.addEventListener("click", e => {
+  openDTNDiscordLink()
+})
+
+let dtn_icon = document.getElementsByClassName("dtn_icon_banner")![0] as HTMLElement;
+dtn_icon.addEventListener("mouseover", e => {
+  Kumi.showQuote('Download NOW at Curseforge!')
+})
+dtn_icon.addEventListener("mouseleave", e => {
+  Kumi.hideQuote()
+})
+dtn_icon.addEventListener("click", e => {
+  openDTNPage()
+})

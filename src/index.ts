@@ -13,6 +13,8 @@ const createWindow = () => {
     icon: path.join(__dirname, 'res/nerd.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
+      contextIsolation: false,
     },
   });
 
