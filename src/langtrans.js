@@ -1,6 +1,3 @@
-let originalData = {};
-let fetchedData = {};
-
 // Fetch the JSON data from the specified URL
 fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json")
   .then(response => response.json())
