@@ -87,3 +87,23 @@ document.getElementById("scroll-to-bottom").addEventListener("click", () => wind
     top: document.body.scrollHeight,
     behavior: 'smooth',
 }));
+
+// Function to toggle the original translation on and off
+document.getElementById("toggle-og-translation-button").style.opacity = 0;
+document.getElementById("file-upload").addEventListener("change", () => {
+  document.getElementById("toggle-og-translation-button").style.opacity = 1;
+  document.getElementById("toggle-og-translation-button").addEventListener("click", () => {
+    const originalTranslation = document.querySelector(".original-translation");
+    if (originalData) { // Show only when the user uploads a file
+      if (originalTranslation.style.opacity === '0') {
+        originalTranslation.style.transition = 'opacity 0.3s ease-in-out';
+        originalTranslation.style.opacity = 1;
+        document.getElementById("toggle-og-translation-button").textContent = 'Hide Original Translation';
+      } else {
+        originalTranslation.style.transition = 'opacity 0.3s ease-in-out';
+        originalTranslation.style.opacity = 0;
+        document.getElementById("toggle-og-translation-button").textContent = 'Show Original Translation';
+      }
+    }
+  });
+});

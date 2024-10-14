@@ -88,6 +88,9 @@ document.getElementById("file-upload").addEventListener("change", function(event
 
 // Function to compare uploaded JSON with fetched JSON
 function compareJSON(uploadedData, fetchedData) {
+  const originalTranslationsBar = document.querySelector(".original-translation");
+  originalTranslationsBar.style.display = 'flex'; // Show the bar when a file is uploaded
+
   const container = document.getElementById("input-container");
   container.innerHTML = ''; // Clear existing content
 
@@ -115,6 +118,7 @@ function compareJSON(uploadedData, fetchedData) {
       label.style.color = 'red';
       indexElement.style.color = 'red';
       input.style.backgroundColor = 'rgb(94 17 17)';
+      input.dataset.originalValue = fetchedValue; // Store original value in data attribute
       missingCount++;
     } else if (uploadedValue !== fetchedValue) {
       // Highlight changed entries in #ffceac and label in #ff6c00
@@ -134,7 +138,24 @@ function compareJSON(uploadedData, fetchedData) {
 
     container.appendChild(div);
   }
-
+  // Add event listener to display original translation of the entry that the user is currently selecting
+  const inputFocusHandler = function(event) {
+    const input = event.target.closest(".input-box");
+    if (input) {
+      const originalTranslationsText = document.createElement("span");
+      originalTranslationsText.textContent = 'Original Translation: ' ;
+      const originalValue = input.dataset.originalValue;
+      if (originalValue) {
+        originalTranslationsText.textContent += originalValue;
+        originalTranslationsBar.innerHTML = '';
+        originalTranslationsBar.appendChild(originalTranslationsText);
+      } else {
+        originalTranslationsBar.innerHTML = '';
+      }
+    }
+  };
+  document.addEventListener("click", inputFocusHandler);
+  document.addEventListener("focusin", inputFocusHandler);
   // Display the counts of missing and changed entries with checkboxes
   const uploadContainer = document.querySelector(".upload-container");
   let statusDiv = document.getElementById("status-div");

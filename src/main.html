@@ -31,11 +31,17 @@
       <p class="total-entries">Total entries: <span id="total-entries">0</span></p>
       <button onclick="window.open('https://github.com/DashieDev/DoggyTalentsNext/blob/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json')" class="change-background-button">Source</button>
     </div>
+    <div class="original-translation">
+      <span>Original Translation: </span>
+      <script src="langtrans.js"></script>
+    </div>
+    
     <div class="wrapper">
       <div id="input-container"></div>
     </div>
     
     <div class="button-container">
+      <button id="toggle-og-translation-button" class="sticky-button">Hide Original Translation</button>
       <button id="revert-button" class="sticky-button">Revert</button>
       <button id="generate-json-button" class="sticky-button">Generate JSON</button>
       <button id="download-json-button" class="sticky-button" style="display: none;">Download JSON</button>

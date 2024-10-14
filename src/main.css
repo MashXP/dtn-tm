@@ -174,7 +174,22 @@ p {
   right: 120px;
   font-size: 15px;
 }
-
+.original-translation {
+  position: sticky;
+  top: 40px;
+  z-index: 1;
+  opacity: 90%;
+  color: #f5f5f5;
+  padding: 20px;
+  text-align: left;
+  display: none;
+  width: 950px;
+  left: 70%;
+  transform: translateX(-26%);
+  background-color: #333;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+}
 .input-container, pre, .upload-container, #rename-bar {
   background-color: #333;
   opacity: 70%;
