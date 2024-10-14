@@ -10,7 +10,7 @@ fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/
     createInputBoxes(data);
   })
   .catch(error => console.error("Error fetching data:", error));
-  
+
 // Function to create input boxes from JSON data
 function createInputBoxes(data) {
   originalData = JSON.parse(JSON.stringify(data)); // Deep copy of original data
@@ -112,7 +112,6 @@ function compareJSON(uploadedData, fetchedData) {
       label.style.color = 'red';
       indexElement.style.color = 'red';
       input.style.backgroundColor = 'rgb(94 17 17)';
-      input.innerHTML = `(Original: ${fetchedValue})`;
       missingCount++;
     } else if (uploadedValue !== fetchedValue) {
       // Highlight changed entries in #ffceac and label in #ff6c00
@@ -121,7 +120,6 @@ function compareJSON(uploadedData, fetchedData) {
       indexElement.style.color = '#ff6c00';
       input.dataset.originalValue = fetchedValue; // Store original value in data attribute
       input.dataset.uploadedValue = uploadedValue; // Store uploaded value in data attribute
-      input.innerHTML = `${uploadedValue}<br><i style="color: gray;">(Original: ${fetchedValue})</i>`;
       changedCount++;
     }
 
@@ -145,7 +143,6 @@ function compareJSON(uploadedData, fetchedData) {
   statusDiv.innerHTML = `
     <label><input type="checkbox" id="filter-missing"> Show missing entries (${missingCount})</label>
     <label><input type="checkbox" id="filter-changed"> Show changed entries (${changedCount})</label>
-    <label><input type="checkbox" id="toggle-original"> Disable original translation</label>
   `;
   // Add event listeners for checkboxes to filter entries
   document.getElementById("filter-missing").addEventListener("change", function() {
@@ -153,17 +150,6 @@ function compareJSON(uploadedData, fetchedData) {
   });
   document.getElementById("filter-changed").addEventListener("change", function() {
     filterEntries();
-  });
-  document.getElementById("toggle-original").addEventListener("change", function() {
-    toggleOriginalTranslation();
-  });
-  // Fix the bug where the original content is gone when pressing revert
-  document.getElementById("revert-button").addEventListener("click", function() {
-    const originalTranslations = document.querySelectorAll('.input-box[data-original-value]');
-    for (const input of originalTranslations) {
-      input.innerHTML = input.dataset.uploadedValue;
-      input.dataset.uploadedValue = input.textContent;
-    }
   });
 }
 // Function to filter entries based on checkbox selection
@@ -189,14 +175,4 @@ function filterEntries() {
   });
 }
 
-function toggleOriginalTranslation() {
-  const showOriginal = !document.getElementById("toggle-original").checked;
-  document.querySelectorAll(".input-box").forEach(input => {
-    if (input.dataset.originalValue) {
-      input.innerHTML = showOriginal
-        ? `${input.dataset.uploadedValue}<br><i style="color: gray;">(Original: ${input.dataset.originalValue})</i>`
-        : input.dataset.uploadedValue;
-    }
-  });
-}
 
