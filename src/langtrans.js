@@ -1,12 +1,61 @@
-// Fetch the JSON data from the specified URL
-fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json")
-  .then(response => response.json())
-  .then(data => {
-    fetchedData = data;
-    updateTotalEntries(); // Update total entries // util.js
-    createInputBoxes(data);
-  })
-  .catch(error => console.error("Error fetching data:", error));
+// Fetch JSON data from default URL on window load
+const defaultURL = "https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json";
+window.addEventListener("load", fetchDefaultData);
+
+function fetchDefaultData() {
+  fetch(defaultURL)
+    .then(response => response.json())
+    .then(data => {
+      fetchedData = data;
+      updateTotalEntries();
+      createInputBoxes(data);
+    })
+    .catch(error => showModalError(`Error fetching data: ${error.message}`));
+}
+
+// Display error message in modal
+function showModalError(errorMessage) {
+  const modal = document.getElementById("modal");
+  const modalContent = modal.querySelector(".modal-content");
+  const previousErrors = modalContent.querySelectorAll("p");
+  previousErrors.forEach(error => error.remove());
+  modalContent.insertAdjacentHTML("beforeend", `<p style="color: red;">${errorMessage}</p>`);
+  modal.style.display = "block";
+}
+
+// Fetch JSON data from user-provided URL or file
+function fetchData() {
+  const url = document.getElementById("url-input").value;
+  const file = document.getElementById("file-input").files[0];
+
+  if (url) {
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        fetchedData = data;
+        updateTotalEntries();
+        createInputBoxes(data);
+        toggleModal();
+      })
+      .catch(error => showModalError(`Error fetching data: ${error.message}`));
+  }
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = JSON.parse(e.target.result);
+        fetchedData = data;
+        updateTotalEntries();
+        createInputBoxes(data);
+        toggleModal();
+      } catch (error) {
+        showModalError(`Error parsing file: ${error.message}`);
+      }
+    };
+    reader.readAsText(file);
+  }
+}
 
 // Function to create input boxes from JSON data
 function createInputBoxes(data) {

@@ -33,8 +33,22 @@
       <input type="text" id="rename-input" placeholder="generated_data.json" style="margin-left: 5px;">
       
       <p class="total-entries">Total entries: <span id="total-entries">0</span></p>
-      <button onclick="window.open('https://github.com/DashieDev/DoggyTalentsNext/blob/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json')" class="change-background-button">Source</button>
+
+      <button onclick="navigator.clipboard.writeText('https://github.com/DashieDev/DoggyTalentsNext/blob/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json');playRandomSound();showKumiQuote('Copied to Clipboard!');" class="change-background-button" style="right: 165px;">Copy Source URL</button>
+      <button class="modal-button" onclick="toggleModal()" style="display: initial;">Custom Source</button>
     </div>
+    
+      <div class="modal" id="modal" style="display: none;">
+        <div class="modal-content">
+          <span class="close" onclick="toggleModal()" style="cursor: pointer;">&times;</span>
+          <p>Enter URL or upload a file to fetch data:</p>
+          <input type="text" id="url-input" placeholder="Enter URL" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc;">
+          <input type="file" id="file-input" style="padding: 10px; border-radius: 10px; border: 1px solid #ccc; background-color: #f5f5f5;">
+          <button onclick="fetchData()" class="fetch-data-button" >Fetch Data</button>
+        </div>
+        <div class="modal-background"></div>
+        <div class="background-cover" onclick="toggleModal()"></div>
+      </div>
     <div class="original-translation">
       <span>Original Translation: </span>
       <script src="langtrans.js"></script>
