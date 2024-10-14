@@ -190,15 +190,6 @@ function toggleOriginalTranslation() {
   });
 }
 
-// Add rename bar to the HTML
-const renameBarHTML = `
-  <div id="rename-bar" style="display: none;">
-    <label for="rename-input">Rename file: </label>
-    <input type="text" id="rename-input" placeholder="generated_data.json">
-  </div>
-`;
-document.getElementById("json-preview").insertAdjacentHTML('beforebegin', renameBarHTML);
-
 // Fetch the JSON data from the specified URL
 fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json")
   .then(response => response.json())
@@ -207,28 +198,6 @@ fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/
     createInputBoxes(data);
   })
   .catch(error => console.error("Error fetching data:", error));
-
-
-
-
-
-// Function to change background
-const backgrounds = [
-  "res/images/background/bg4.png", 
-  "res/images/background/bg2.png", 
-  "res/images/background/bg3.png", 
-  "res/images/background/bg.png"
-];
-let backgroundIndex = 0;
-
-function changeBackgroundImage() {
-  document.body.style.backgroundImage = `url('${backgrounds[backgroundIndex++ % backgrounds.length]}')`;
-}
-
-// Fetch total entries function
-function updateTotalEntries() {
-  document.getElementById("total-entries").innerText = Object.keys(fetchedData).length;
-}
 
 // Call the function when the data is fetched
 fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json")
