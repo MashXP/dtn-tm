@@ -1,5 +1,5 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('node:path');
+import {app, BrowserWindow} from "electron"
+import path from 'node:path';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -10,7 +10,6 @@ const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     maximizable: true,
-    maximized: true,
     icon: path.join(__dirname, 'res/nerd.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -19,6 +18,7 @@ const createWindow = () => {
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'main.html'));
+  mainWindow.maximize()
 };
 
 // This method will be called when Electron has finished

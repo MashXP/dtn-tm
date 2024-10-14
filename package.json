@@ -3,10 +3,11 @@
   "productName": "dtn-tm",
   "version": "1.0.0",
   "description": "My Electron application description",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "npm run compile && electron-forge start",
-    "compile": "tsc",
+    "compile": "tsc && npm run copy_resource",
+    "copy_resource": "copyfiles -e **/*.ts -u 1 src/**/* dist/",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
@@ -21,6 +22,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.5.0",
     "@electron-forge/plugin-fuses": "^7.5.0",
     "@electron/fuses": "^1.8.0",
+    "copyfiles": "^2.4.1",
     "electron": "^32.2.0",
     "typescript": "^5.6.3"
   },

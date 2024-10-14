@@ -1,3 +1,4 @@
+
 const kumiQuotes = [
     "I'm watching you...",
     "What are you doing?",
@@ -115,13 +116,14 @@ const kumiQuotes = [
 ];
 let quoteIndex = 0;
 function showKumiQuote(quoteOverride = undefined) {
-  document.querySelector(".kumi-dialogue").style.display = "block";
+  document.querySelector<HTMLElement>(".kumi-dialogue")!.style.display = "block";
   const randomIndex = Math.floor(Math.random() * kumiQuotes.length);
   const quote = quoteOverride || kumiQuotes[randomIndex];
-  document.querySelector(".kumi-dialogue").textContent = quote;
+  document.querySelector<HTMLElement>(".kumi-dialogue")!.textContent = quote;
+  console.log("kumi said sth")
 }
 function hideKumiQuote() {
-  document.querySelector(".kumi-dialogue").style.display = "none";
+  document.querySelector<HTMLElement>(".kumi-dialogue")!.style.display = "none";
 }
 function playRandomSound() {
   const audioFiles = [
@@ -156,3 +158,10 @@ function playRandomSound() {
 }
 
 
+function openDTNDiscordLink() {
+  Electron.shell.openExternal("https://discord.gg/VnSkMufZEc");
+}
+
+function openDTNPage() {
+  Electron.shell.openExternal("https://www.curseforge.com/minecraft/mc-mods/doggy-talents-next")
+}

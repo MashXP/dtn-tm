@@ -1,10 +1,12 @@
-let originalData = {};
-let fetchedData = {};
+import { DTNUtils } from "./Util";
+
+let originalData: any = {};
+let fetchedData: any = {};
 
 // Function to create input boxes from JSON data
-function createInputBoxes(data) {
+function createInputBoxes(data : any) {
   originalData = JSON.parse(JSON.stringify(data)); // Deep copy of original data
-  const container = document.getElementById("input-container");
+  const container = DTNUtils.element(document, "input-container");
   container.innerHTML = ''; // Clear existing content
 
   let index = 1;
@@ -17,19 +19,21 @@ function createInputBoxes(data) {
 
     const input = document.createElement("div");
     input.className = "input-box";
-    input.contentEditable = true;
+    input.contentEditable = "true"
     input.textContent = data[key];
 
     // Add event listener to select all content on pressing Tab and move to the next input box
     input.addEventListener("keydown", function(event) {
       if (event.key === 'Tab' && !event.shiftKey) {
-        const nextInput = input.parentElement.nextSibling.querySelector(".input-box");
+        const nextInput = (<HTMLElement> input.parentElement!.nextSibling)
+          .querySelector<HTMLInputElement>(".input-box");
         if (nextInput) {
           nextInput.focus();
           selectAllContent(nextInput);
         }
       } else if (event.key === 'Tab' && event.shiftKey) {
-        const previousInput = input.parentElement.previousSibling.querySelector(".input-box");
+        const previousInput = (<HTMLElement> input.parentElement!.previousSibling!)
+          .querySelector<HTMLInputElement>(".input-box");
         if (previousInput) {
           previousInput.focus();
           selectAllContent(previousInput);
@@ -51,39 +55,39 @@ function createInputBoxes(data) {
 }
 
 // Function to select all content and place cursor at the end
-function selectAllContent(element) {
+function selectAllContent(element : any) {
   const range = document.createRange();
   range.selectNodeContents(element);
-  const selection = window.getSelection();
+  const selection = window.getSelection()!;
   selection.removeAllRanges();
   selection.addRange(range);
 }
 // Function to generate JSON from input values
 function generateJSON() {
   const inputs = document.querySelectorAll(".input-box");
-  const jsonData = {};
+  const jsonData: any = {};
 
   for (const input of inputs) {
-    const key = input.previousElementSibling.textContent.replace(/"/g, '').replace(':', '');
+    const key = input.previousElementSibling!.textContent!.replace(/"/g, '').replace(':', '');
     const value = input.textContent;
     jsonData[key] = value;
   }
 
-  const jsonPreviewElement = document.getElementById("json-preview");
+  const jsonPreviewElement = DTNUtils.element(document, "json-preview");
   jsonPreviewElement.textContent = JSON.stringify(jsonData, null, 2); // Beautify JSON with indentation
 
   // Show the download and "Scroll to Top of JSON" button
-  document.getElementById("download-json-button").style.display = 'inline-block';
-  document.getElementById("scroll-to-json-top").style.display = 'inline-block';
+  DTNUtils.element(document, "download-json-button").style.display = 'inline-block';
+  DTNUtils.element(document, "scroll-to-json-top").style.display = 'inline-block';
 }
 
 // Function to download JSON as a file
 function downloadJSON() {
-  const jsonPreviewElement = document.getElementById("json-preview").textContent;
-  const jsonBlob = new Blob([jsonPreviewElement], { type: "application/json" });
+  const jsonPreviewElement = DTNUtils.element(document, "json-preview").textContent;
+  const jsonBlob = new Blob([jsonPreviewElement!], { type: "application/json" });
   const jsonUrl = URL.createObjectURL(jsonBlob);
   const downloadLink = document.createElement("a");
-  const fileName = document.getElementById("rename-input").value || "generated_data.json";
+  const fileName = DTNUtils.elementAs<HTMLInputElement>(document, "rename-input").value || "generated_data.json";
   downloadLink.href = jsonUrl;
   downloadLink.download = fileName;
   downloadLink.click();
@@ -97,7 +101,7 @@ function confirmRevert() {
 function revertInputsToOriginal() {
   const inputs = document.querySelectorAll(".input-box");
   for (const input of inputs) {
-    const key = input.previousElementSibling.textContent.replace(/"/g, '').replace(':', '');
+    const key = input.previousElementSibling!.textContent!.replace(/"/g, '').replace(':', '');
     input.textContent = originalData[key];
   }
 }
@@ -108,12 +112,12 @@ function revertData() {
 }
 
 // Function to handle file upload
-document.getElementById("file-upload").addEventListener("change", function(event) {
-  const file = event.target.files[0];
+DTNUtils.element(document, "file-upload").addEventListener("change", function(event) {
+  const file = (<HTMLInputElement> event.target!).files![0];
   if (file) {
     const reader = new FileReader();
     reader.onload = function(e) {
-      const data = JSON.parse(e.target.result);
+      const data = JSON.parse(e.target!.result!.toString());
       createInputBoxes(data);
       compareJSON(data, fetchedData);
     };
@@ -122,8 +126,8 @@ document.getElementById("file-upload").addEventListener("change", function(event
 });
 
 // Function to compare uploaded JSON with fetched JSON
-function compareJSON(uploadedData, fetchedData) {
-  const container = document.getElementById("input-container");
+function compareJSON(uploadedData: any, fetchedData: any) {
+  const container = DTNUtils.element(document, "input-container");
   container.innerHTML = ''; // Clear existing content
 
   let missingCount = 0;
@@ -142,7 +146,7 @@ function compareJSON(uploadedData, fetchedData) {
 
     const input = document.createElement("div");
     input.className = "input-box";
-    input.contentEditable = true;
+    input.contentEditable = "true";
     input.textContent = uploadedValue || '';
 
     if (uploadedValue === undefined) {
@@ -169,16 +173,16 @@ function compareJSON(uploadedData, fetchedData) {
     div.appendChild(label);
     div.appendChild(input);
 
-    container.appendChild(div);
+    container!.appendChild(div);
   }
 
   // Display the counts of missing and changed entries with checkboxes
   const uploadContainer = document.querySelector(".upload-container");
-  let statusDiv = document.getElementById("status-div");
+  let statusDiv = DTNUtils.element(document, "status-div");
   if (!statusDiv) {
     statusDiv = document.createElement("div");
     statusDiv.id = "status-div";
-    uploadContainer.appendChild(statusDiv);
+    uploadContainer!.appendChild(statusDiv);
   }
   statusDiv.innerHTML = `
     <label><input type="checkbox" id="filter-missing"> Show missing entries (${missingCount})</label>
@@ -186,54 +190,56 @@ function compareJSON(uploadedData, fetchedData) {
     <label><input type="checkbox" id="toggle-original"> Disable original translation</label>
   `;
   // Add event listeners for checkboxes to filter entries
-  document.getElementById("filter-missing").addEventListener("change", function() {
+  DTNUtils.element(document, "filter-missing").addEventListener("change", function() {
     filterEntries();
   });
-  document.getElementById("filter-changed").addEventListener("change", function() {
+  DTNUtils.element(document, "filter-changed").addEventListener("change", function() {
     filterEntries();
   });
-  document.getElementById("toggle-original").addEventListener("change", function() {
+  DTNUtils.element(document, "toggle-original").addEventListener("change", function() {
     toggleOriginalTranslation();
   });
   // Fix the bug where the original content is gone when pressing revert
-  document.getElementById("revert-button").addEventListener("click", function() {
-    const originalTranslations = document.querySelectorAll('.input-box[data-original-value]');
+  DTNUtils.element(document, "revert-button").addEventListener("click", function() {
+    const originalTranslations = document.querySelectorAll<HTMLElement>('.input-box[data-original-value]');
     for (const input of originalTranslations) {
-      input.innerHTML = input.dataset.uploadedValue;
-      input.dataset.uploadedValue = input.textContent;
+      input.innerHTML = input.dataset.uploadedValue!;
+      input.dataset.uploadedValue = input.textContent!;
     }
   });
 }
 // Function to filter entries based on checkbox selection
 function filterEntries() {
-  const showMissing = document.getElementById("filter-missing").checked;
-  const showChanged = document.getElementById("filter-changed").checked;
+  const showMissing = DTNUtils.elementAs<HTMLInputElement>(document, "filter-missing").checked;
+  const showChanged = DTNUtils.elementAs<HTMLInputElement>(document, "filter-changed").checked;
   const inputs = document.querySelectorAll(".input-box");
 
   inputs.forEach(input => {
-    const label = input.previousElementSibling;
+    const label = input.previousElementSibling! as HTMLElement;
     const isMissing = label.style.color === 'red';
     const isChanged = label.style.color === 'rgb(255, 108, 0)';
 
+    let parent_element = input.parentElement as HTMLElement;
+
     if (showMissing && isMissing) {
-      input.parentElement.style.display = 'flex';
+      parent_element.style.display = 'flex';
     } else if (showChanged && isChanged) {
-      input.parentElement.style.display = 'flex';
+      parent_element.style.display = 'flex';
     } else if (!showMissing && !showChanged) {
-      input.parentElement.style.display = 'flex';
+      parent_element.style.display = 'flex';
     } else {
-      input.parentElement.style.display = 'none';
+      parent_element.style.display = 'none';
     }
   });
 }
 
 function toggleOriginalTranslation() {
-  const showOriginal = !document.getElementById("toggle-original").checked;
+  const showOriginal = !DTNUtils.elementAs<HTMLInputElement>(document, "toggle-original").checked;
   document.querySelectorAll(".input-box").forEach(input => {
-    if (input.dataset.originalValue) {
-      input.innerHTML = showOriginal
-        ? `${input.dataset.uploadedValue}<br><i style="color: gray;">(Original: ${input.dataset.originalValue})</i>`
-        : input.dataset.uploadedValue;
+    if ((input as HTMLElement).dataset.originalValue) {
+      (input as HTMLElement).innerHTML = showOriginal
+        ? `${(input as HTMLElement).dataset.uploadedValue}<br><i style="color: gray;">(Original: ${(input as HTMLElement).dataset.originalValue})</i>`
+        : (input as HTMLElement).dataset.uploadedValue!;
     }
   });
 }
@@ -245,7 +251,7 @@ const renameBarHTML = `
     <input type="text" id="rename-input" placeholder="generated_data.json">
   </div>
 `;
-document.getElementById("json-preview").insertAdjacentHTML('beforebegin', renameBarHTML);
+DTNUtils.element(document, "json-preview").insertAdjacentHTML('beforebegin', renameBarHTML);
 
 // Fetch the JSON data from the specified URL
 fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json")
@@ -257,35 +263,35 @@ fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/
   .catch(error => console.error("Error fetching data:", error));
 
 // Event listener for the "Generate JSON" button
-const generateJSONButton = document.getElementById("generate-json-button");
+const generateJSONButton = DTNUtils.element(document, "generate-json-button");
 generateJSONButton.addEventListener("click", generateJSON);
 
 // Event listener for the "Revert" button
-const revertButton = document.getElementById("revert-button");
+const revertButton = DTNUtils.element(document, "revert-button");
 revertButton.addEventListener("click", revertData);
 
 // Event listener for the "Download JSON" button
-const downloadJSONButton = document.getElementById("download-json-button");
+const downloadJSONButton = DTNUtils.element(document, "download-json-button");
 downloadJSONButton.addEventListener("click", downloadJSON);
 
 // Hide the Download Json button when revert is clicked
-document.getElementById("revert-button").addEventListener("click", () => {
-  document.getElementById("download-json-button").style.display = 'none';
+DTNUtils.element(document, "revert-button").addEventListener("click", () => {
+  DTNUtils.element(document, "download-json-button").style.display = 'none';
 });
 
 // Scroll to top of JSON function
-document.getElementById("scroll-to-json-top").addEventListener("click", () => {
-  const jsonPreviewElement = document.getElementById("json-preview");
+DTNUtils.element(document, "scroll-to-json-top")!.addEventListener("click", () => {
+  const jsonPreviewElement = DTNUtils.element(document, "json-preview");
   jsonPreviewElement.scrollIntoView({ behavior: 'smooth' });
 });
 
 // Scroll to top function
-document.getElementById("scroll-to-top").addEventListener("click", () => {
+DTNUtils.element(document, "scroll-to-top").addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 // Scroll to bottom function
-document.getElementById("scroll-to-bottom").addEventListener("click", () => {
+DTNUtils.element(document, "scroll-to-bottom").addEventListener("click", () => {
   window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 });
 
@@ -304,7 +310,7 @@ function changeBackgroundImage() {
 
 // Fetch total entries function
 function updateTotalEntries() {
-  document.getElementById("total-entries").innerText = Object.keys(fetchedData).length;
+  DTNUtils.element(document, "total-entries").innerText = Object.keys(fetchedData).length.toString();
 }
 
 // Call the function when the data is fetched
@@ -319,19 +325,19 @@ fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/
 
 
 // Add a finder. Pressing Ctrl+F
-let finder = null;
+let finder : HTMLInputElement | null = null;
 document.addEventListener("keydown", function(event) {
   if (event.key === "f" && event.ctrlKey) {
     event.preventDefault();
     if (finder) {
       finder.remove();
       finder = null;
-      const inputs = document.querySelectorAll(".input-container");
+      const inputs = document.querySelectorAll<HTMLElement>(".input-container");
       inputs.forEach(input => {
-        const label = input.firstElementChild.textContent;
-        const content = input.lastElementChild.textContent;
-        input.firstElementChild.textContent = label;
-        input.lastElementChild.textContent = content;
+        const label = input.firstElementChild!.textContent;
+        const content = input.lastElementChild!.textContent;
+        input.firstElementChild!.textContent = label;
+        input.lastElementChild!.textContent = content;
         input.style.display = "flex";
       });
     } else {
@@ -343,7 +349,7 @@ document.addEventListener("keydown", function(event) {
       finder.style.left = "0";
       finder.style.width = "100%";
       finder.style.padding = "5px";
-      finder.style.zIndex = 2;
+      finder.style.zIndex = "2";
       finder.style.background = "#333";
       finder.style.color = "#f5f5f5";
       finder.style.border = "0";
@@ -351,26 +357,26 @@ document.addEventListener("keydown", function(event) {
       finder.focus();
 
       finder.addEventListener("input", function() {
-        const keyword = finder.value;
-        const inputs = document.querySelectorAll(".input-container");
+        const keyword = finder!.value;
+        const inputs = document.querySelectorAll<HTMLElement>(".input-container");
         inputs.forEach(input => {
-          const label = input.firstElementChild.textContent;
-          const content = input.lastElementChild.textContent;
-          const labelHighlight = label.replace(new RegExp(`(${keyword})`, "g"), `<span style="background-color: #076221">${"$1"}</span>`);
-          const contentHighlight = content.replace(new RegExp(`(${keyword})`, "g"), `<span style="background-color: #076221">${"$1"}</span>`);
-          input.firstElementChild.innerHTML = labelHighlight;
-          input.lastElementChild.innerHTML = contentHighlight;
-          if (label.includes(keyword) || content.includes(keyword)) {
-            input.style.display = "flex";
+          const label = input.firstElementChild!.textContent;
+          const content = input.lastElementChild!.textContent;
+          const labelHighlight = label!.replace(new RegExp(`(${keyword})`, "g"), `<span style="background-color: #076221">${"$1"}</span>`);
+          const contentHighlight = content!.replace(new RegExp(`(${keyword})`, "g"), `<span style="background-color: #076221">${"$1"}</span>`);
+          input.firstElementChild!.innerHTML = labelHighlight;
+          input.lastElementChild!.innerHTML = contentHighlight;
+          if (label!.includes(keyword) || content!.includes(keyword)) {
+            input.style!.display = "flex";
           } else {
-            input.style.display = "none";
+            input.style!.display = "none";
           }
         });
       });
 
       // Keep the finder active even if the user click somewhere else
       document.addEventListener("click", function(event) {
-        const isClickInside = finder.contains(event.target);
+        const isClickInside = finder!.contains(event.target as HTMLElement);
         if (!isClickInside) {
           event.stopPropagation();
         }

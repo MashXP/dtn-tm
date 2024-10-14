@@ -10,10 +10,12 @@
     "paths": {
       "*": ["node_modules/*"]
     },
-    "outDir": "src/"
+    "outDir": "dist/",
+    "sourceMap": true
   },
   
   "include": [
-    "src/**/*"
-  ]
+    "src/**/*.ts"
+  ],
+  "exclude": []
 }
