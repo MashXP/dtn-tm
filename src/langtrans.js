@@ -50,6 +50,16 @@ function createInputBoxes(data) {
   }
 }
 
+// Fetch the JSON data from the specified URL
+fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json")
+  .then(response => response.json())
+  .then(data => {
+    fetchedData = data;
+    updateTotalEntries(); // Update total entries // util.js
+    createInputBoxes(data);
+  })
+  .catch(error => console.error("Error fetching data:", error));
+
 // Function to select all content and place cursor at the end
 function selectAllContent(element) {
   const range = document.createRange();
@@ -190,21 +200,3 @@ function toggleOriginalTranslation() {
   });
 }
 
-// Fetch the JSON data from the specified URL
-fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json")
-  .then(response => response.json())
-  .then(data => {
-    fetchedData = data;
-    createInputBoxes(data);
-  })
-  .catch(error => console.error("Error fetching data:", error));
-
-// Call the function when the data is fetched
-fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json")
-  .then(response => response.json())
-  .then(data => {
-    fetchedData = data;
-    updateTotalEntries();
-    createInputBoxes(data);
-  })
-  .catch(error => console.error("Error fetching data:", error));
