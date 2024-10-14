@@ -1,6 +1,16 @@
 let originalData = {};
 let fetchedData = {};
 
+// Fetch the JSON data from the specified URL
+fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json")
+  .then(response => response.json())
+  .then(data => {
+    fetchedData = data;
+    updateTotalEntries(); // Update total entries // util.js
+    createInputBoxes(data);
+  })
+  .catch(error => console.error("Error fetching data:", error));
+  
 // Function to create input boxes from JSON data
 function createInputBoxes(data) {
   originalData = JSON.parse(JSON.stringify(data)); // Deep copy of original data
@@ -49,16 +59,6 @@ function createInputBoxes(data) {
     container.appendChild(div);
   }
 }
-
-// Fetch the JSON data from the specified URL
-fetch("https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json")
-  .then(response => response.json())
-  .then(data => {
-    fetchedData = data;
-    updateTotalEntries(); // Update total entries // util.js
-    createInputBoxes(data);
-  })
-  .catch(error => console.error("Error fetching data:", error));
 
 // Function to select all content and place cursor at the end
 function selectAllContent(element) {
