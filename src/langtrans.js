@@ -30,26 +30,6 @@ function createInputBoxes(data) {
     input.contentEditable = true;
     input.textContent = data[key];
 
-    // Add event listener to select all content on pressing Tab and move to the next input box
-    input.addEventListener("keydown", function(event) {
-      if (event.key === 'Tab' && !event.shiftKey) {
-        const nextInput = input.parentElement.nextSibling.querySelector(".input-box");
-        if (nextInput) {
-          nextInput.focus();
-          selectAllContent(nextInput);
-        }
-      } else if (event.key === 'Tab' && event.shiftKey) {
-        const previousInput = input.parentElement.previousSibling.querySelector(".input-box");
-        if (previousInput) {
-          previousInput.focus();
-          selectAllContent(previousInput);
-        }
-      }
-      if (event.key === 'Tab') {
-        event.preventDefault();
-      }
-    });
-
     const div = document.createElement("div");
     div.className = "input-container";
     div.appendChild(indexElement);
@@ -59,6 +39,29 @@ function createInputBoxes(data) {
     container.appendChild(div);
   }
 }
+
+// Add event listener to select all content on pressing Tab and move to the next input box
+document.addEventListener("keydown", function(event) {
+  const input = event.target.closest(".input-box");
+  if (input) {
+    if (event.key === 'Tab' && !event.shiftKey) {
+      const nextInput = input.parentElement.nextSibling.querySelector(".input-box");
+      if (nextInput) {
+        nextInput.focus();
+        selectAllContent(nextInput);
+      }
+    } else if (event.key === 'Tab' && event.shiftKey) {
+      const previousInput = input.parentElement.previousSibling.querySelector(".input-box");
+      if (previousInput) {
+        previousInput.focus();
+        selectAllContent(previousInput);
+      }
+    }
+    if (event.key === 'Tab') {
+      event.preventDefault();
+    }
+  }
+});
 
 // Function to select all content and place cursor at the end
 function selectAllContent(element) {

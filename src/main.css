@@ -45,6 +45,7 @@ p {
 .input-container span {
   color: inherit;
   font-size: 14px;
+  width: auto;
 }
 .input-box {
   height: auto;
@@ -116,6 +117,11 @@ p {
 
 #revert-button {
   bottom: 60px;
+  left: 20px;
+}
+
+#toggle-og-translation-button {
+  bottom: 100px;
   left: 20px;
 }
 
