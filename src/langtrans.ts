@@ -1,3 +1,4 @@
+import { ipcRenderer } from "electron";
 import { Kumi, openDTNDiscordLink, openDTNPage } from "./kumi";
 import { DTNUtils } from "./Util";
 
@@ -96,8 +97,8 @@ function downloadJSON() {
 }
 
 // Functions to confirm reverting to original data
-function confirmRevert() {
-  return confirm("Are you sure you want to revert to the original data?");
+async function confirmDialog(a: string) : Promise<boolean> {
+  return ipcRenderer.invoke("showRevertConfirmation", a);
 }
 function revertInputsToOriginal() {
   const inputs = document.querySelectorAll(".input-box");
@@ -107,9 +108,12 @@ function revertInputsToOriginal() {
   }
 }
 function revertData() {
-  if (confirmRevert()) {
-    revertInputsToOriginal();
-  }
+  confirmDialog("Are you sure you want to revert to the original data?")
+    .then(result => {
+      if (result) {
+        revertInputsToOriginal()
+      }
+    })
 }
 
 // Function to handle file upload
