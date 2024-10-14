@@ -11,7 +11,7 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     maximizable: true,
     maximized: true,
-    icon: path.join(__dirname, 'nerd.ico'),
+    icon: path.join(__dirname, 'res/nerd.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },

@@ -125,11 +125,11 @@ function hideKumiQuote() {
 }
 function playRandomSound() {
   const audioFiles = [
-    "bark1.mp3",
-    "bark2.mp3",
-    "bark3.mp3",
-    "panting.mp3",
-    "whine.mp3",
+    "res/sounds/kumi/bark1.mp3",
+    "res/sounds/kumi/bark2.mp3",
+    "res/sounds/kumi/bark3.mp3",
+    "res/sounds/kumi/panting.mp3",
+    "res/sounds/kumi/whine.mp3",
   ];
 
   const randomFile = audioFiles[Math.floor(Math.random() * audioFiles.length)];
@@ -141,7 +141,7 @@ function playRandomSound() {
 
   sound.playbackRate = randomPitch;
 
-  if (randomFile === "panting.mp3") {
+  if (randomFile === "res/sounds/kumi/panting.mp3") {
     sound.volume = 0.5;
   } else {
     sound.volume = 0.2;
