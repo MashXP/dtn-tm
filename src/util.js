@@ -1,10 +1,16 @@
 
 // Function to toggle modal
 function toggleModal() {
-  document.getElementById("modal").style.display === "block" ? 
-    document.getElementById("modal").style.display = "none" : 
-    document.getElementById("modal").style.display = "block";
-  document.body.style.overflow = document.getElementById("modal").style.display === "block" ? "hidden" : "auto";
+  const modal = document.getElementById("modal");
+  const modalDisplayStyle = modal.style.display;
+  modal.style.display = "block";
+  modal.style.opacity = 0;
+  modal.style.transition = "opacity 0.3s ease-in-out";
+  setTimeout(() => {
+    modal.style.opacity = modalDisplayStyle === "block" ? 0 : 1;
+  }, 0);
+  modal.style.display = modalDisplayStyle === "block" ? "none" : "block";
+  document.body.style.overflow = modalDisplayStyle === "block" ? "auto" : "hidden";
 }
 
 // Event listener for the modal
