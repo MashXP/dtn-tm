@@ -1,5 +1,5 @@
 // Fetch JSON data from default URL on window load
-const defaultURL = "https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json";
+defaultURL = "https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json";
 window.addEventListener("load", fetchDefaultData);
 
 function fetchDefaultData() {
