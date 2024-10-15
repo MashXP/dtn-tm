@@ -75,6 +75,11 @@ function createInputBoxes(data) {
     input.className = "input-box";
     input.contentEditable = true;
     input.textContent = data[key];
+    input.addEventListener("paste", function(event) {
+      event.preventDefault();
+      const text = event.clipboardData.getData("text/plain");
+      document.execCommand("insertText", false, text);
+    });
 
     const div = document.createElement("div");
     div.className = "input-container";
@@ -85,7 +90,6 @@ function createInputBoxes(data) {
     container.appendChild(div);
   }
 }
-
 // Add event listener to select all content on pressing Tab and move to the next input box
 document.addEventListener("keydown", function(event) {
   const input = event.target.closest(".input-box");
