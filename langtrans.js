@@ -9,52 +9,80 @@ function fetchDefaultData() {
       fetchedData = data;
       updateTotalEntries();
       createInputBoxes(data);
-    })
-    .catch(error => showModalError(`Error fetching data: ${error.message}`));
+    });
 }
 
-// Display error message in modal
-function showModalError(errorMessage) {
-  const modal = document.getElementById("modal");
-  const modalContent = modal.querySelector(".modal-content");
-  const previousErrors = modalContent.querySelectorAll("p");
-  previousErrors.forEach(error => error.remove());
-  modalContent.insertAdjacentHTML("beforeend", `<p style="color: red;">${errorMessage}</p>`);
-  modal.style.display = "block";
-}
-
-// Fetch JSON data from user-provided URL or file
+// Function to fetch JSON data from URL or File
 function fetchData() {
-  const url = document.getElementById("url-input").value;
-  const file = document.getElementById("file-input").files[0];
+  const urlInput = document.getElementById("url-input");
+  const fileInput = document.getElementById("file-input");
 
-  if (url) {
-    fetch(url)
+  if (urlInput.value !== '') {
+    fetch(urlInput.value)
       .then(response => response.json())
       .then(data => {
         fetchedData = data;
         updateTotalEntries();
         createInputBoxes(data);
         toggleModal();
+        showSuccessMessage();
       })
-      .catch(error => showModalError(`Error fetching data: ${error.message}`));
-  }
-
-  if (file) {
+      .catch(error => displayErrorMessage('Error fetching data: ' + error.message));
+    urlInput.value = '';
+  } else if (fileInput.files.length > 0) {
+    const file = fileInput.files[0];
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function() {
       try {
-        const data = JSON.parse(e.target.result);
-        fetchedData = data;
+        fetchedData = JSON.parse(reader.result);
         updateTotalEntries();
-        createInputBoxes(data);
+        createInputBoxes(fetchedData);
         toggleModal();
+        showSuccessMessage();
       } catch (error) {
-        showModalError(`Error parsing file: ${error.message}`);
+        displayErrorMessage('Error parsing file: ' + error.message);
       }
     };
     reader.readAsText(file);
+    fileInput.value = '';
   }
+}
+
+// Function to display error message
+function displayErrorMessage(message) {
+  const errorDiv = document.createElement("div");
+  errorDiv.textContent = message;
+  errorDiv.className = "error-message";
+  errorDiv.textContent = message;
+  document.body.appendChild(errorDiv);
+
+  errorDiv.classList.add("show");
+
+  setTimeout(() => {
+    errorDiv.classList.remove("show");
+  }, 1000);
+
+  setTimeout(() => {
+    document.body.removeChild(errorDiv);
+  }, 2000);
+}
+
+// Function to show success message
+function showSuccessMessage() {
+  const successMessage = document.createElement("div");
+  successMessage.className = "success-message";
+  successMessage.textContent = "Success!";
+  document.body.appendChild(successMessage);
+
+  successMessage.classList.add("show");
+
+  setTimeout(() => {
+    successMessage.classList.remove("show");
+  }, 1000);
+
+  setTimeout(() => {
+    document.body.removeChild(successMessage);
+  }, 2000);
 }
 
 // Function to create input boxes from JSON data

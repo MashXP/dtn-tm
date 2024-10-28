@@ -30,7 +30,7 @@
     </div>
     <div id="rename-bar">
       <label for="rename-input">Rename file: </label>
-      <input type="text" id="rename-input" placeholder="generated_data.json" style="margin-left: 5px;">
+      <input type="text" id="rename-input" placeholder="generated_data.json" style="margin-left: 5px; height: 10px;" >
       
       <p class="total-entries">Total entries: <span id="total-entries">0</span></p>
 
@@ -42,9 +42,17 @@
           <span class="close" onclick="toggleModal()" style="cursor: pointer;">&times;</span>
           <p>Enter URL of Raw JSON file or upload a file to fetch data:</p>
           <p class="submodal-example-url">Example: <i>https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json</i></p>
+          
+          <hr>
+          <button class="fetch-data-button" type="button" style="cursor: pointer;" onclick="document.getElementById('url-input').style.display = 'initial'; document.getElementById('file-input').style.display = 'none'; document.getElementById('url-input').value = '';">URL</button>
+          <button class="fetch-data-button" type="button" style="cursor: pointer;" onclick="document.getElementById('url-input').style.display = 'none'; document.getElementById('file-input').style.display = 'initial'; document.getElementById('file-input').value = null;">File</button>
+          <br>
+          
           <input type="text" id="url-input" placeholder="Enter URL">
-          <input type="file" id="file-input">
-          <button onclick="fetchData()" class="fetch-data-button" >Fetch Data</button>
+          <input type="file" id="file-input" style="display: none;">
+
+          <button class="fetch-data-button" type="button" style="cursor: pointer;" onclick="fetchData()">Fetch</button>
+
         </div>
         <div class="modal-background"></div>
         <div class="background-cover" onclick="toggleModal()"></div>
