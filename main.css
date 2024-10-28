@@ -294,7 +294,13 @@ p {
   height: 100%;
   z-index: 1001;
 }
-
+.submodal-example-url {
+  font-size: 10px;
+  color: gray;
+  font-style: italic;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
 .modal-content {
   position: fixed;
   top: 50%;

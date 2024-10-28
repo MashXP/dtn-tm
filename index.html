@@ -34,14 +34,14 @@
       
       <p class="total-entries">Total entries: <span id="total-entries">0</span></p>
 
-      <button onclick="navigator.clipboard.writeText('https://github.com/DashieDev/DoggyTalentsNext/blob/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json');playRandomSound();showKumiQuote('Copied to Clipboard!');" class="change-background-button" style="right: 165px;">Copy Source URL</button>
       <button class="modal-button" onclick="toggleModal()" style="display: initial;">Custom Source</button>
     </div>
     
       <div class="modal" id="modal" style="display: none;">
         <div class="modal-content">
           <span class="close" onclick="toggleModal()" style="cursor: pointer;">&times;</span>
-          <p>Enter URL or upload a file to fetch data:</p>
+          <p>Enter URL of Raw JSON file or upload a file to fetch data:</p>
+          <p class="submodal-example-url">Example: <i>https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json</i></p>
           <input type="text" id="url-input" placeholder="Enter URL">
           <input type="file" id="file-input">
           <button onclick="fetchData()" class="fetch-data-button" >Fetch Data</button>
