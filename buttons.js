@@ -39,9 +39,12 @@ function downloadJSON() {
 // Event listener for the "Revert" button
 const revertButton = document.getElementById("revert-button");
 revertButton.addEventListener("click", revertData);
-// Functions to confirm reverting to original data
-async function confirmDialog(a) {
-  return window.DTNexposedAPI.showConfirmationBox(a);
+// Function to confirm reverting to original data
+function confirmDialog(message) {
+  return new Promise((resolve) => {
+    const userConfirmed = window.confirm(message);
+    resolve(userConfirmed);
+  });
 }
 function revertInputsToOriginal() {
   const inputs = document.querySelectorAll(".input-box");
@@ -54,11 +57,10 @@ function revertData() {
   confirmDialog("Are you sure you want to revert to the original data?")
     .then(result => {
       if (result) {
-        revertInputsToOriginal()
+        revertInputsToOriginal();
       }
-    })
+    });
 }
-
 // Function to generate JSON from input values
 function generateJSON() {
   const inputs = document.querySelectorAll(".input-box");
