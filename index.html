@@ -13,84 +13,118 @@
       <img src="res/images/dtn_logo.png" style="cursor: default; max-height: 150px;">
     </div>
     
-    <h1>Welcome to DTN Translation Manager</h1>
-    <p>This is a user-friendly tool designed to simplify the process of Managing and Translating JSON entries. With this manager, you can easily:</p>
-    <ul>
-      <li>Upload and compare JSON files with DTN's Latest Localization file (by default).</li>
-      <li>Filter out Changed and Missing entries.</li>
-      <li>Tab to quickly move to the next Entry!</li>
-      <li>Download the generated JSON file to your local machine.</li>
-      <li>Quickly find designated entries with Ctrl+F !</li>
-    </ul>
-    <p>This tool aims to streamline the translation process and ensure Consistent and Accurate localization entries.</p> 
-    <hr> 
-    <h2>How to use:</h2>
-    Optional: Pick your source file (before comparing, other else you'd have to re-upload it).
-    <ol>
-      <li>Click the "Choose File" button to select a JSON file</li>
-      <li>Click the "Generate JSON" button to generate your file.</li>
-      <li>Click the "Download JSON" button to download the generated JSON file and send it to us via <a href="https://github.com/DashieDev/DoggyTalentsNext/discussions">Github</a> or <a href="https://discord.gg/VnSkMufZEc">Discord</a>!</li>
-    </ol>
-    <hr>
-    <div class="upload-container">
-      <label for="file-upload" class="upload-label">Upload JSON to compare:</label>
-      <input type="file" id="file-upload" accept=".json">    
-      <button onclick="changeBackgroundImage()" class="change-background-button">Change Background</button>
+    <div class="welcome-message">
+      <h1>Welcome to DTN Translation Manager</h1>
+      <p>This is a user-friendly tool designed to simplify the process of Managing and Translating JSON entries. With this manager, you can easily:</p>
+      <ul>
+        <li>Upload and compare JSON files with DTN's Latest Localization file (by default).</li>
+        <li>Filter out Changed and Missing entries.</li>
+        <li>Tab to quickly move to the next Entry!</li>
+        <li>Download the generated JSON file to your local machine.</li>
+        <li>Quickly find designated entries with Ctrl+F !</li>
+      </ul>
+      <p>This tool aims to streamline the translation process and ensure Consistent and Accurate localization entries.</p> 
+      <hr> 
+      <h2>How to use:</h2>
+      Optional: Pick your source file (before comparing, other else you'd have to re-upload it).
+      <ol>
+        <li>Click the "Choose File" button to select a JSON file</li>
+        <li>Click the "Generate JSON" button to generate your file.</li>
+        <li>Click the "Download JSON" button to download the generated JSON file and send it to us via <a href="https://github.com/DashieDev/DoggyTalentsNext/discussions">Github</a> or <a href="https://discord.gg/VnSkMufZEc">Discord</a>!</li>
+      </ol>
+      <hr>
     </div>
-    <div id="rename-bar">
-      <label for="rename-input">Rename file: </label>
-      <input type="text" id="rename-input" placeholder="generated_data.json" style="margin-left: 5px; height: 10px;" >
-      
-      <p class="total-entries">Total entries: <span id="total-entries">0</span></p>
 
-      <button class="modal-button" onclick="toggleModal()" style="display: initial;">Custom Source</button>
+    <link rel="stylesheet" href="upperbody.css" />
+    <div class="upperbody">
+      <div class="upload-container">
+        <div class="upload-container-left">
+          <label for="file-upload" class="upload-label">Upload JSON to compare:</label>
+          <input type="file" id="file-upload" accept=".json">    
+        </div>
+
+        <div class="upload-container-right">
+          <div id="status-div"></div>
+          <button onclick="changeBackgroundImage()" class="change-background-button">Change Background</button>
+        </div>
+      </div>
+      
+      <div id="rename-container">
+        <div class="rename-container-left" style="display:inline-flex;">
+          <label for="rename-input">Rename file: </label>
+          <input type="text" id="rename-input" placeholder="generated_data.json">
+        </div>
+      
+        <div class="rename-container-right" style="display:inline-flex;">
+          <p class="total-entries">Total entries: <span id="total-entries">0</span></p>
+          <button class="modal-button" onclick="toggleModal()">Custom Source</button>
+        </div>
+      </div>
     </div>
     
+    <link rel="stylesheet" href="modal.css" />
+    <div class="modal-wrapper">
       <div class="modal" id="modal" style="display: none;">
         <div class="modal-content">
           <span class="close" onclick="toggleModal()" style="cursor: pointer;">&times;</span>
-          <p>Enter URL of Raw JSON file or upload a file to fetch data:</p>
-          <p class="submodal-example-url">Example: <i>https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json</i></p>
-          
-          <hr>
-          <button class="fetch-data-button" type="button" style="cursor: pointer;" onclick="document.getElementById('url-input').style.display = 'initial'; document.getElementById('file-input').style.display = 'none'; document.getElementById('url-input').value = '';">URL</button>
-          <button class="fetch-data-button" type="button" style="cursor: pointer;" onclick="document.getElementById('url-input').style.display = 'none'; document.getElementById('file-input').style.display = 'initial'; document.getElementById('file-input').value = null;">File</button>
-          <br>
-          
-          <input type="text" id="url-input" placeholder="Enter URL">
-          <input type="file" id="file-input" style="display: none;">
+          <div style="display: flex;">
+            
+            <p>Enter URL of Raw JSON file or upload a file to fetch data:</p>
+          </div>
+          <div style="display: flex;">
+            <p class="submodal-example-url">Example: <i>https://raw.githubusercontent.com/DashieDev/DoggyTalentsNext/1.21-master/src/main/resources/assets/doggytalents/lang/en_us.json</i></p>
+          </div>
 
-          <button class="fetch-data-button" type="button" style="cursor: pointer;" onclick="fetchData()">Fetch</button>
-
+          <div style="display: flex; gap: 5px;">
+            <button onclick="document.getElementById('url-input').style.display = 'initial'; document.getElementById('file-input').style.display = 'none'; document.getElementById('url-input').value = '';">URL</button>
+            <button onclick="document.getElementById('url-input').style.display = 'none'; document.getElementById('file-input').style.display = 'initial'; document.getElementById('file-input').value = null;">File</button>
+          </div>
+          
+          <div>
+            <input type="text" id="url-input" placeholder="Enter URL">
+            <input type="file" id="file-input" style="display: none;">
+            <button onclick="fetchData()">Fetch</button>
+          </div>
         </div>
-        <div class="modal-background"></div>
-        <div class="background-cover" onclick="toggleModal()"></div>
       </div>
-    <div class="original-translation">
-      <span>Original Translation: </span>
-      <script src="langtrans.js"></script>
+      <div class="background-cover" onclick="toggleModal()"></div>
     </div>
-    
-    <div class="wrapper">
-      <div id="input-container"></div>
+
+    <div class="original-translation-wrapper">
+      <div class="original-translation">
+        <span>Original Translation: </span>
+        <script src="langtrans.js"></script>
+      </div>
     </div>
-    
-    <div class="button-container">
-      <button id="fill-missing-button" class="sticky-button">Fill Missing Entries</button>
-      <button id="toggle-og-translation-button" class="sticky-button">Hide Original Translation</button>
-      <button id="revert-button" class="sticky-button">Revert</button>
-      <button id="generate-json-button" class="sticky-button">Generate JSON</button>
-      <button id="download-json-button" class="sticky-button" style="display: none;">Download JSON</button>
+
+    <link rel="stylesheet" href="lowerbody.css">
+    <link rel="stylesheet" href="button.css" />
+
+    <div class="lowerbody">
+      <div class="input-box-wrapper">
+        <div id="input-container"></div>
+      </div>
+      <div class="json-preview-wrapper">
+        <pre id="json-preview"></pre>
+      </div>
+      <div class="button-container" style="display: flex;">
+        <div class="button-container-left">
+          <button id="fill-missing-button" class="sticky-button">Fill Missing Entries</button>
+          <button id="toggle-og-translation-button" class="sticky-button">Hide Original Translation</button>
+          <button id="revert-button" class="sticky-button">Revert</button>
+          <button id="generate-json-button" class="sticky-button">Generate JSON</button>
+          <button id="download-json-button" class="sticky-button" style="display: none;">Download JSON</button>
+        </div>
+        
+        <div class="button-container-right" style="display: flex; justify-content: space-between;">
+          <button id="scroll-to-json-top" class="scroll-button" style="display: none;">To JSON</button>
+          <button id="scroll-to-top" class="scroll-button">🞁</button>
+          <button id="scroll-to-bottom" class="scroll-button">🞃</button>
+        </div>
+      </div>
     </div>
-    <div class="wrapper">
-      <pre id="json-preview"></pre>
-    </div>
-    <div class="button-container">
-      <button id="scroll-to-json-top" class="scroll-button" style="display: none;">To JSON</button>
-      <button id="scroll-to-top" class="scroll-button">🡱</button>
-      <button id="scroll-to-bottom" class="scroll-button">🡳</button>
-    </div>
-    
+
+    <link rel="stylesheet" href="footer.css" />
     <div class="footer">
       <p class="footer-title">Got any issues? Join our Discord server!</p>
       <div class="footer-links">
@@ -103,7 +137,7 @@
       </div>
     </div>
 
-    <div style="display: block; position: relative;">
+    <div>
       <img src="res/images//kumi/kumi_stare.png" class="kumi" onmouseover="showKumiQuote();playRandomSound()" onmouseout="hideKumiQuote()" onclick="showKumiQuote();playRandomSound()">
       <p class="kumi-dialogue">
         <script src="kumi.js"></script>

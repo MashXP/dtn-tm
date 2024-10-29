@@ -42,7 +42,11 @@ function fetchData() {
         compareJSON(data, originalData);
         showSuccessMessage();
       } catch (error) {
-        displayErrorMessage('Error parsing file: ' + error.message);
+        if (error.name === 'SyntaxError') {
+          displayErrorMessage('Error parsing file: ' + error.message);
+        } else {
+          showSuccessMessage();
+        }
       }
     };
     reader.readAsText(file);
@@ -86,7 +90,6 @@ function showSuccessMessage() {
     document.body.removeChild(successMessage);
   }, 2000);
 }
-
 // Function to create input boxes from JSON data
 function createInputBoxes(data) {
   originalData = JSON.parse(JSON.stringify(data)); // Deep copy of original data
@@ -177,13 +180,10 @@ function compareJSON(uploadedData, fetchedData) {
   let missingCount = 0;
   let changedCount = 0;
 
-  let index = 1;
+  const inputs = [];
   for (const key in fetchedData) {
     const uploadedValue = uploadedData[key];
     const fetchedValue = fetchedData[key];
-
-    const indexElement = document.createElement("span");
-    indexElement.textContent = `${index++}. `;
 
     const label = document.createElement("label");
     label.textContent = `"${key}":`;
@@ -196,7 +196,6 @@ function compareJSON(uploadedData, fetchedData) {
     if (uploadedValue === undefined) {
       // Highlight missing entries in red
       label.style.color = 'red';
-      indexElement.style.color = 'red';
       input.style.backgroundColor = 'rgb(94 17 17)';
       input.dataset.originalValue = fetchedValue; // Store original value in data attribute
       missingCount++;
@@ -204,7 +203,6 @@ function compareJSON(uploadedData, fetchedData) {
       // Highlight changed entries in #ffceac and label in #ff6c00
       input.style.backgroundColor = 'rgb(96 53 12)';
       label.style.color = '#ff6c00';
-      indexElement.style.color = '#ff6c00';
       input.dataset.originalValue = fetchedValue; // Store original value in data attribute
       input.dataset.uploadedValue = uploadedValue; // Store uploaded value in data attribute
       changedCount++;
@@ -212,12 +210,13 @@ function compareJSON(uploadedData, fetchedData) {
 
     const div = document.createElement("div");
     div.className = "input-container";
-    div.appendChild(indexElement);
     div.appendChild(label);
     div.appendChild(input);
 
     container.appendChild(div);
+    inputs.push(input);
   }
+
   // Add event listener to display original translation of the entry that the user is currently selecting
   const inputFocusHandler = function(event) {
     const input = event.target.closest(".input-box");
@@ -236,26 +235,19 @@ function compareJSON(uploadedData, fetchedData) {
   };
   document.addEventListener("click", inputFocusHandler);
   document.addEventListener("focusin", inputFocusHandler);
+
   // Display the counts of missing and changed entries with checkboxes
   const uploadContainer = document.querySelector(".upload-container");
-  let statusDiv = document.getElementById("status-div");
-  if (!statusDiv) {
-    statusDiv = document.createElement("div");
-    statusDiv.id = "status-div";
-    uploadContainer.appendChild(statusDiv);
-  }
+  const statusDiv = document.getElementById("status-div");
   statusDiv.innerHTML = `
     <label><input type="checkbox" id="filter-missing"> Show missing entries (${missingCount})</label>
     <label><input type="checkbox" id="filter-changed"> Show changed entries (${changedCount})</label>
   `;
   // Add event listeners for checkboxes to filter entries
-  document.getElementById("filter-missing").addEventListener("change", function() {
-    filterEntries();
-  });
-  document.getElementById("filter-changed").addEventListener("change", function() {
-    filterEntries();
-  });
+  document.getElementById("filter-missing").addEventListener("change", filterEntries);
+  document.getElementById("filter-changed").addEventListener("change", filterEntries);
 }
+
 // Function to filter entries based on checkbox selection
 function filterEntries() {
   const showMissing = document.getElementById("filter-missing").checked;
@@ -278,4 +270,3 @@ function filterEntries() {
     }
   });
 }
-

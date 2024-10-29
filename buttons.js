@@ -94,9 +94,9 @@ document.getElementById("scroll-to-bottom").addEventListener("click", () => wind
 }));
 
 // Function to toggle the original translation on and off
-document.getElementById("toggle-og-translation-button").style.opacity = 0;
+document.getElementById("toggle-og-translation-button").style.display = "none";
 document.getElementById("file-upload").addEventListener("change", () => {
-  document.getElementById("toggle-og-translation-button").style.opacity = 1;
+  document.getElementById("toggle-og-translation-button").style.display = "block";
   document.getElementById("toggle-og-translation-button").addEventListener("click", () => {
     const originalTranslation = document.querySelector(".original-translation");
     if (originalData) { // Show only when the user uploads a file
@@ -114,6 +114,7 @@ document.getElementById("file-upload").addEventListener("change", () => {
 });
 
 // Function to fill in the missing entries.
+document.getElementById("fill-missing-button").style.display = 'none';
 document.getElementById("fill-missing-button").addEventListener("click", () => {
   const inputs = document.querySelectorAll(".input-box");
   inputs.forEach(input => {

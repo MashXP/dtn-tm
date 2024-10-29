@@ -1,0 +1,35 @@
+.footer {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 0;
+    padding: 0 10px 20px 10px;
+    position: relative;
+    bottom: -10px;
+    transform: scale(1.02);
+}
+  
+  .footer-title {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    transform: scale(1.02);
+}
+  
+  .footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+.footer-banner:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 2px 4px rgba(255, 255, 255, 0.3);
+}
+.footer-banner {
+    width: 100%;
+    max-height: 125px;
+    max-width: 1000px;
+    display: block;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    transition: all 0.15s ease-in-out;
+}

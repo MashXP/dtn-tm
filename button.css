@@ -1,0 +1,29 @@
+.button-container {
+    align-items: flex-end;
+    justify-content: space-between;
+    position: sticky;
+    bottom: 0;
+}
+
+.button-container-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.button-container-right{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#download-json-button {
+    bottom: 20px;
+    left: 150px;
+    display: none;
+    background-color: rgb(55, 99, 12);
+    transition: background-color 0.3s ease-in-out;
+}
+  
+  #download-json-button:hover {
+    background-color: #4caf50;
+}

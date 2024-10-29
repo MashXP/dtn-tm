@@ -2,15 +2,17 @@
 // Function to toggle modal
 function toggleModal() {
   const modal = document.getElementById("modal");
+  const backgroundCover = document.querySelector(".background-cover");
   const modalDisplayStyle = modal.style.display;
-  modal.style.display = "block";
-  modal.style.opacity = 0;
+
   modal.style.transition = "opacity 0.3s ease-in-out";
+  backgroundCover.style.display = modalDisplayStyle === "flex" ? "none" : "flex";
   setTimeout(() => {
-    modal.style.opacity = modalDisplayStyle === "block" ? 0 : 1;
+    modal.style.opacity = modalDisplayStyle === "flex" ? 0 : 1;
   }, 0);
-  modal.style.display = modalDisplayStyle === "block" ? "none" : "block";
-  document.body.style.overflow = modalDisplayStyle === "block" ? "auto" : "hidden";
+  modal.style.display = modalDisplayStyle === "flex" ? "none" : "flex";
+  document.body.style.overflowX = "hidden";
+  document.body.style.overflowY = modalDisplayStyle === "flex" ? "auto" : "hidden";
 }
 
 // Event listener for the modal
