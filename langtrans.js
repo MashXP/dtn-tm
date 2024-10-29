@@ -25,6 +25,7 @@ function fetchData() {
         updateTotalEntries();
         createInputBoxes(data);
         toggleModal();
+        compareJSON(data, originalData);
         showSuccessMessage();
       })
       .catch(error => displayErrorMessage('Error fetching data: ' + error.message));
@@ -38,6 +39,7 @@ function fetchData() {
         updateTotalEntries();
         createInputBoxes(fetchedData);
         toggleModal();
+        compareJSON(data, originalData);
         showSuccessMessage();
       } catch (error) {
         displayErrorMessage('Error parsing file: ' + error.message);
@@ -276,5 +278,4 @@ function filterEntries() {
     }
   });
 }
-
 
