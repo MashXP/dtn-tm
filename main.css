@@ -412,4 +412,23 @@ a:hover {
 .error-message.show {
   animation: fadeInOut 2s ease-in-out;
 }
+.footer {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-top: 0;
+  padding: 0 10px 20px 10px;
+  position: relative;
+  bottom: -10px;
+  transform: scale(1.02);
+}
 
+.footer-title {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
