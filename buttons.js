@@ -13,7 +13,7 @@ function generateJSON() {
     }
   
     const jsonPreviewElement = document.getElementById("json-preview");
-    jsonPreviewElement.textContent = JSON.stringify(jsonData, null, 2); // Beautify JSON with indentation
+    jsonPreviewElement.textContent = JSON.stringify(jsonData, null, 3); // Beautify JSON with indentation
   
     // Show the download and "Scroll to Top of JSON" button
     document.getElementById("download-json-button").style.display = 'inline-block';
@@ -73,7 +73,7 @@ function generateJSON() {
   }
 
   const jsonPreviewElement = document.getElementById("json-preview");
-  jsonPreviewElement.textContent = JSON.stringify(jsonData, null, 2); // Beautify JSON with indentation
+  jsonPreviewElement.textContent = JSON.stringify(jsonData, null, 3); // Beautify JSON with indentation
 
   // Show the download and "Scroll to Top of JSON" button
   document.getElementById("download-json-button").style.display = 'inline-block';
