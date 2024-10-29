@@ -112,3 +112,18 @@ document.getElementById("file-upload").addEventListener("change", () => {
     }
   });
 });
+
+// Function to fill in the missing entries.
+document.getElementById("fill-missing-button").addEventListener("click", () => {
+  const inputs = document.querySelectorAll(".input-box");
+  inputs.forEach(input => {
+    const originalValue = input.dataset.originalValue;
+    if (originalValue && input.textContent.trim() === '') {
+      input.textContent = originalValue;
+    }
+  });
+});
+
+document.getElementById("file-upload").addEventListener("change", () => {
+  document.getElementById("fill-missing-button").style.display = 'inline-block';
+});
