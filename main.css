@@ -360,6 +360,7 @@ p {
   background: #4CAF50;
   color: white;
   padding: 10px;
+  z-index: 1000;
   border-radius: 5px;
   opacity: 0;
   animation: fadeInOut 2s ease-in-out;
