@@ -28,7 +28,16 @@ p {
   font-size: 18px;
   line-height: 1.5;
 }
+a {
+  color: #1e90ff;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
 
+a:hover {
+  color: #00bfff;
+  text-decoration: underline;
+}
 .input-container {
   display: flex;
   align-items: center;
